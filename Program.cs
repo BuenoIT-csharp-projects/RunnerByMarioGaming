@@ -1,3 +1,3 @@
 ﻿
-using var game = new RunnerByMarioGame.Game1();
+using var game = new RunnerByMarioGame.MarioRunner();
 game.Run();

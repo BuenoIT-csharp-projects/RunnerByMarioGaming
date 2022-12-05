@@ -1,15 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RunnerByMarioGame.Entities;
+using RunnerByMarioGame.Sprites;
 
 namespace RunnerByMarioGame
 {
-    public class Game1 : Game
+    public class MarioRunner : Game
     {
+        //Mario Sprite Add To Variables
+        private const string MARIO_ASSET_IMG = "mario-sprite-no-bg";
+        private Texture2D _spriteMario;
+
+        //Mario object declaration
+        private Mario _mario;
+
+        //Screen size declarations and initialization
+        public const int screen_width = 1000;
+        public const int screen_height = 400;
+
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        public MarioRunner()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -21,13 +35,23 @@ namespace RunnerByMarioGame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            //Apply screen size to the game
+            _graphics.PreferredBackBufferWidth= screen_width;
+            _graphics.PreferredBackBufferHeight= screen_height;
+            _graphics.ApplyChanges();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //Load Mario Sprite to the Game
+            _spriteMario = Content.Load<Texture2D>(MARIO_ASSET_IMG);
+            _mario = new Mario(_spriteMario, new Vector2(1, 250)); //Hard code initialization position of Mario to the game
+            
+            
+        
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,9 +66,11 @@ namespace RunnerByMarioGame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _spriteBatch.Begin();
+
+            _mario.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 
