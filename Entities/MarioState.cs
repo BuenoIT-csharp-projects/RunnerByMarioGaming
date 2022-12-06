@@ -11,6 +11,7 @@ namespace RunnerByMarioGame.Entities
         Idle,
         Running,
         JumpingUp,
+        FallingDown,
         TurningDown,
         NotActive
     }

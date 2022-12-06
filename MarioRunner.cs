@@ -9,7 +9,7 @@ namespace RunnerByMarioGame
     public class MarioRunner : Game
     {
         //Mario Sprite Add To Variables
-        private const string MARIO_ASSET_IMG = "mario-sprite-no-bg";
+        private const string mario_asset_img = "mario-sprite-no-bg";
         private Texture2D _spriteMario;
 
         //Mario object declaration
@@ -47,7 +47,7 @@ namespace RunnerByMarioGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Load Mario Sprite to the Game
-            _spriteMario = Content.Load<Texture2D>(MARIO_ASSET_IMG);
+            _spriteMario = Content.Load<Texture2D>(mario_asset_img);
             _mario = new Mario(_spriteMario, new Vector2(1, 250)); //Hard code initialization position of Mario to the game
             
             
@@ -60,6 +60,7 @@ namespace RunnerByMarioGame
                 Exit();
 
             // TODO: Add your update logic here
+            _mario.Update(gameTime);
 
             base.Update(gameTime);
         }
