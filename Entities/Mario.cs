@@ -84,7 +84,7 @@ namespace RunnerByMarioGame.Entities
                 {
                     counter = 0;
                 }
-                else if (counter > 20)
+                else if (counter >= 20)
                 {
                     MarioSprite.PointX = _mario_running_1_sprite_X;
                     MarioSprite.PointY = _mario_running_1_sprite_Y;
@@ -93,7 +93,7 @@ namespace RunnerByMarioGame.Entities
 
                     MarioSprite.Draw(spriteBatch, MarioPosition);
                 }
-                else if (counter > 10 && counter < 20)
+                else if (counter >= 10 && counter < 20)
                 {
                     MarioSprite.PointX = _mario_sprite_X;
                     MarioSprite.PointY = _mario_sprite_Y;
