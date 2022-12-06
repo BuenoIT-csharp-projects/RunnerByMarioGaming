@@ -25,10 +25,24 @@ namespace RunnerByMarioGame.Entities
         public int _mario_jump_sprite_width = 96;
         public int _mario_jump_sprite_height = 96;
 
+        //Mario Running Sprite_1
+        public int _mario_running_1_sprite_X = 294;
+        public int _mario_running_1_sprite_Y = 18;
+        public int _mario_running_1_sprite_width = 72;
+        public int _mario_running_1_sprite_height = 96;
+
+        //Mario Running Sprite_2
+        public int _mario_running_2_sprite_X = 186;
+        public int _mario_running_2_sprite_Y = 18;
+        public int _mario_running_2_sprite_width = 96;
+        public int _mario_running_2_sprite_height = 96;
+
 
         //Jump variables declaration and initialization
         Vector2 position = new Vector2(1, 250); //Initial Position Mario
         Vector2 velocity;
+
+        int counter = 0;
 
         public SpriteDimensions MarioSprite { get; set; }
         public Vector2 MarioPosition { get; set; }
@@ -64,12 +78,46 @@ namespace RunnerByMarioGame.Entities
 
                 MarioSprite.Draw(spriteBatch, MarioPosition);
             }
-           
+            else if (MarioState == MarioState.Running)
+            {
+                if (counter > 30)
+                {
+                    counter = 0;
+                }
+                else if (counter > 20)
+                {
+                    MarioSprite.PointX = _mario_running_1_sprite_X;
+                    MarioSprite.PointY = _mario_running_1_sprite_Y;
+                    MarioSprite.Width = _mario_running_1_sprite_width;
+                    MarioSprite.Height = _mario_running_1_sprite_height;
+
+                    MarioSprite.Draw(spriteBatch, MarioPosition);
+                }
+                else if (counter > 10 && counter < 20)
+                {
+                    MarioSprite.PointX = _mario_sprite_X;
+                    MarioSprite.PointY = _mario_sprite_Y;
+                    MarioSprite.Width = _mario_sprite_width;
+                    MarioSprite.Height = _mario_sprite_height;
+                    MarioSprite.Draw(spriteBatch, MarioPosition);
+                }
+                else if (counter < 10)
+                {
+                    MarioSprite.PointX = _mario_running_2_sprite_X;
+                    MarioSprite.PointY = _mario_running_2_sprite_Y;
+                    MarioSprite.Width = _mario_running_2_sprite_width;
+                    MarioSprite.Height = _mario_running_2_sprite_height;
+
+                    MarioSprite.Draw(spriteBatch, MarioPosition);
+                }
+                counter++;
+            }
         }
 
         public void Update(GameTime gameTime)
         {
             Jump();
+
         }
 
         public void Jump()
@@ -90,10 +138,10 @@ namespace RunnerByMarioGame.Entities
 
             if (position.Y + MarioSprite.Height >= 350)
             {
-                MarioState = MarioState.Idle;
+                MarioState = MarioState.Running;
             }
 
-            if (MarioState == MarioState.Idle)
+            if (MarioState == MarioState.Running)
             {
                 velocity.Y = 0f;
             }
