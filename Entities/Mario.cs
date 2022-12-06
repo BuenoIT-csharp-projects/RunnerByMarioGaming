@@ -16,7 +16,7 @@ namespace RunnerByMarioGame.Entities
         public int _mario_sprite_Y = 18;
         public int _mario_sprite_width = 72;
         public int _mario_sprite_height = 96;
-        Vector2 position;
+        Vector2 position = new Vector2(1, 250); //Initial Position Mario
         Vector2 velocity;
 
         public SpriteDimensions MarioSprite { get; set; }
@@ -52,17 +52,16 @@ namespace RunnerByMarioGame.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && MarioState != MarioState.JumpingUp)
             {
                 position.Y -= 10f;
-                velocity.Y = -5f;
+                velocity.Y = -7f;
                 MarioState = MarioState.JumpingUp;
             }
 
             if (MarioState == MarioState.JumpingUp)
             {
-                float i = 1;
-                velocity.Y += 0.15f * i;
+                velocity.Y += 0.15f;
             }
 
-            if (MarioPosition.Y + MarioSprite.Height >= 250)
+            if (position.Y + MarioSprite.Height >= 350)
             {
                 MarioState = MarioState.Idle;
             }
@@ -73,6 +72,7 @@ namespace RunnerByMarioGame.Entities
             }
 
             MarioPosition = position;
+
 
         }
 
