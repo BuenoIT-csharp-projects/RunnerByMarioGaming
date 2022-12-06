@@ -48,6 +48,14 @@ namespace RunnerByMarioGame.Entities
 
         public void Update(GameTime gameTime)
         {
+
+            Jump();
+
+        }
+
+        public void Jump()
+        {
+            // Jumping Rules
             position += velocity;
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && MarioState != MarioState.JumpingUp)
             {
@@ -72,17 +80,6 @@ namespace RunnerByMarioGame.Entities
             }
 
             MarioPosition = position;
-
-
-        }
-
-        public bool Jump()
-        {
-            if (MarioState == MarioState.JumpingUp || MarioState == MarioState.FallingDown)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }
