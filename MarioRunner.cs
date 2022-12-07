@@ -56,7 +56,6 @@ namespace RunnerByMarioGame
             _graphics.PreferredBackBufferHeight= screen_height;
             _graphics.ApplyChanges();
 
-            remainingDelay = random.Next(1, 4);
         }
 
         protected override void LoadContent()
@@ -97,10 +96,6 @@ namespace RunnerByMarioGame
 
             _mario.Update(gameTime);
             _goomba.Update(gameTime);
-
-            //Timer Update Variable
-            timer += gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
 
             base.Update(gameTime);
         }
