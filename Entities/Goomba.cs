@@ -53,7 +53,7 @@ namespace RunnerByMarioGame.Entities
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            var num = random.Next(0, 2);
+            
 
             GoombaSprite.Draw(spriteBatch, GoombaPosition);
 
