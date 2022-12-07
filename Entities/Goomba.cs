@@ -57,8 +57,6 @@ namespace RunnerByMarioGame.Entities
 
             GoombaSprite.Draw(spriteBatch, GoombaPosition);
 
-            if (num == 1)
-            {
                 GoombaStatus = "attack";
                 if (counter > 30)
                 {
@@ -86,7 +84,7 @@ namespace RunnerByMarioGame.Entities
                     GoombaSprite.Height = _goomba_running_2_sprite_height;
                 }
                 counter++;
-            }
+            
         }
 
         public void Update(GameTime gameTime)

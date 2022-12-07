@@ -3,11 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RunnerByMarioGame.Entities;
 using RunnerByMarioGame.Sprites;
+using System;
 
 namespace RunnerByMarioGame
 {
     public class MarioRunner : Game
     {
+        //Random Initialization
+        Random random = new Random();
+
         //Mario Sprite Add To Variables
         private const string mario_asset_img = "mario-sprite-no-bg";
         private Texture2D _spriteMario;
@@ -26,6 +30,9 @@ namespace RunnerByMarioGame
         public const int screen_width = 1000;
         public const int screen_height = 400;
 
+        //Timer Variable
+        double timer;
+        double remainingDelay;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -47,6 +54,8 @@ namespace RunnerByMarioGame
             _graphics.PreferredBackBufferWidth= screen_width;
             _graphics.PreferredBackBufferHeight= screen_height;
             _graphics.ApplyChanges();
+
+            remainingDelay = random.Next(1, 4);
         }
 
         protected override void LoadContent()
@@ -59,7 +68,7 @@ namespace RunnerByMarioGame
             
             //Load Goomba Sprite to the Game
             _spriteGoomba = Content.Load<Texture2D>(goomba_no_bg);
-            _goomba = new Goomba(_spriteGoomba, new Vector2(800, 290));
+            _goomba = new Goomba(_spriteGoomba, new Vector2(1100, 290));
         
         }
 
@@ -68,9 +77,13 @@ namespace RunnerByMarioGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            //Characters Update Methods - Actions
             _mario.Update(gameTime);
             _goomba.Update(gameTime);
+
+            //Timer Update Variable
+            timer += gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
 
             base.Update(gameTime);
         }
