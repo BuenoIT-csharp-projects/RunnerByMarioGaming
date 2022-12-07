@@ -15,6 +15,13 @@ namespace RunnerByMarioGame
         //Mario object declaration
         private Mario _mario;
 
+        //Goomba object declaration
+        private Goomba _goomba;
+
+        //Goomba Sprite Add To Variables
+        private const string goomba_no_bg = "goomba-no-bg";
+        private Texture2D _spriteGoomba;
+
         //Screen size declarations and initialization
         public const int screen_width = 1000;
         public const int screen_height = 400;
@@ -50,7 +57,9 @@ namespace RunnerByMarioGame
             _spriteMario = Content.Load<Texture2D>(mario_asset_img);
             _mario = new Mario(_spriteMario, new Vector2(1, 250)); //Hard code initialization position of Mario to the game
             
-            
+            //Load Goomba Sprite to the Game
+            _spriteGoomba = Content.Load<Texture2D>(goomba_no_bg);
+            _goomba = new Goomba(_spriteGoomba, new Vector2(800, 290));
         
         }
 
@@ -61,6 +70,7 @@ namespace RunnerByMarioGame
 
             // TODO: Add your update logic here
             _mario.Update(gameTime);
+            _goomba.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -72,6 +82,7 @@ namespace RunnerByMarioGame
             _spriteBatch.Begin();
 
             _mario.Draw(_spriteBatch, gameTime);
+            _goomba.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 

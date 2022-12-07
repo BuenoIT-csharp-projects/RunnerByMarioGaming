@@ -42,7 +42,7 @@ namespace RunnerByMarioGame.Entities
         Vector2 position = new Vector2(1, 250); //Initial Position Mario
         Vector2 velocity;
 
-        int counter = 0;
+        int counter = 1;
 
         public SpriteDimensions MarioSprite { get; set; }
         public Vector2 MarioPosition { get; set; }
@@ -82,7 +82,7 @@ namespace RunnerByMarioGame.Entities
             {
                 if (counter > 30)
                 {
-                    counter = 0;
+                    counter = 1;
                 }
                 else if (counter >= 20)
                 {
