@@ -5,6 +5,7 @@ using RunnerByMarioGame.Background;
 using RunnerByMarioGame.Entities;
 using RunnerByMarioGame.Sprites;
 using System;
+using System.Collections.Generic;
 
 namespace RunnerByMarioGame
 {
@@ -26,6 +27,9 @@ namespace RunnerByMarioGame
         //Goomba Sprite Add To Variables
         private const string goomba_no_bg = "goomba-no-bg";
         private Texture2D _spriteGoomba;
+
+        //List of Goombas declaration
+        List<Goomba> goombas = new List<Goomba>();
 
         //Screen size declarations and initialization
         public const int screen_width = 1000;
@@ -66,6 +70,7 @@ namespace RunnerByMarioGame
 
             //Time lap zero
             _timeLap = 0;
+
         }
 
         protected override void LoadContent()
@@ -85,8 +90,15 @@ namespace RunnerByMarioGame
             
             //Load Goomba Sprite to the Game
             _spriteGoomba = Content.Load<Texture2D>(goomba_no_bg);
-            _goomba = new Goomba(_spriteGoomba, new Vector2(1100, 290));
-        
+            //_goomba = new Goomba(_spriteGoomba, new Vector2(1100, 290));
+
+            //Load Goombas created to the game
+            var rndNumberOfGoombas = random.Next(8, 20); //Random number of Goombas to be created in the game
+            for (int i = 0; i < rndNumberOfGoombas; i++)
+            {
+                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 10000), 290)));
+            }
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -118,8 +130,13 @@ namespace RunnerByMarioGame
             _scrolling1.Update();
             _scrolling2.Update();
 
+            //Characters Update
             _mario.Update(gameTime);
-            _goomba.Update(gameTime);
+            for (int i = 0; i < goombas.Count; i++)
+            {
+                goombas[i].Update(gameTime);
+            }
+            //_goomba.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -134,8 +151,14 @@ namespace RunnerByMarioGame
             _scrolling1.Draw(_spriteBatch);
             _scrolling2.Draw(_spriteBatch);
 
+            //Character Draw
             _mario.Draw(_spriteBatch, gameTime);
-            _goomba.Draw(_spriteBatch, gameTime);
+
+            for (int i = 0; i < goombas.Count; i++)
+            {
+                goombas[i].Draw(_spriteBatch, gameTime);
+            }
+            //_goomba.Draw(_spriteBatch, gameTime);
 
             //Font draw
             _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);

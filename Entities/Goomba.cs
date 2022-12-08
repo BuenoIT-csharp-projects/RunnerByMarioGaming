@@ -43,7 +43,7 @@ namespace RunnerByMarioGame.Entities
         int counter = 1;
 
         public SpriteDimensions GoombaSprite { get; set; }
-        public Vector2 GoombaPosition { get; set; }
+        //public Vector2 GoombaPosition { get; set; }
         public string GoombaStatus { get; set; }
 
 
@@ -70,7 +70,7 @@ namespace RunnerByMarioGame.Entities
 
             if (GoombaStatus == "attack")
             {
-                GoombaSprite.Draw(spriteBatch, GoombaPosition);
+                GoombaSprite.Draw(spriteBatch, position);
 
                 if (counter >= 30)
                 {
@@ -123,7 +123,7 @@ namespace RunnerByMarioGame.Entities
             velocity.X = -0.2f;
             
             //Update position
-            GoombaPosition = position;
+            //GoombaPosition = position;
         }
 
         public void Stop()
