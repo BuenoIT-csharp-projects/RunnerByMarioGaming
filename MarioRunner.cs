@@ -35,6 +35,14 @@ namespace RunnerByMarioGame
         private Scrolling _scrolling1;
         private Scrolling _scrolling2;
 
+        //Font declaration
+        private SpriteFont _font;
+
+        //Game session declaration
+        private double _timer;
+        private int _score;
+        private double _timeLap;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -56,6 +64,8 @@ namespace RunnerByMarioGame
             _graphics.PreferredBackBufferHeight= screen_height;
             _graphics.ApplyChanges();
 
+            //Time lap zero
+            _timeLap = 0;
         }
 
         protected override void LoadContent()
@@ -65,6 +75,9 @@ namespace RunnerByMarioGame
             //Background movement
             _scrolling1 = new Scrolling(Content.Load<Texture2D>("background"), new Rectangle(0, -300, 1280, 720));
             _scrolling2 = new Scrolling(Content.Load<Texture2D>("background"), new Rectangle(1280, -300, 1280, 720));
+
+            //Font
+            _font = Content.Load<SpriteFont>("Fonts");
 
             //Load Mario Sprite to the Game
             _spriteMario = Content.Load<Texture2D>(mario_asset_img);
@@ -80,6 +93,17 @@ namespace RunnerByMarioGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+
+            //Increase time
+            _timer += gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (_timer - _timeLap >= 3)
+            {
+	            _timeLap = _timer;
+	            _score += 10;
+            }
+            
 
             //Background Image position update
             if (_scrolling1.rectangle.X + 1280 <= 0)
@@ -113,6 +137,12 @@ namespace RunnerByMarioGame
             _mario.Draw(_spriteBatch, gameTime);
             _goomba.Draw(_spriteBatch, gameTime);
 
+            //Font draw
+            _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
+            _spriteBatch.DrawString(_font, $"Time:  {_score}", new Vector2(5,50),Color.Red);
+            _spriteBatch.DrawString(_font, $"abc", new Vector2(5,100),Color.White);
+
+            //End
             _spriteBatch.End();
 
             base.Draw(gameTime);
