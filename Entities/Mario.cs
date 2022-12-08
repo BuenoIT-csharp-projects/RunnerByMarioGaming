@@ -148,6 +148,10 @@ namespace RunnerByMarioGame.Entities
 
             MarioPosition = position;
         }
+        public void Stop()
+        {
+            MarioState = MarioState.NotActive;
+        }
 
     }
 }

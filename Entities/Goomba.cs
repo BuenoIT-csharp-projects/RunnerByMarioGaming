@@ -13,7 +13,9 @@ namespace RunnerByMarioGame.Entities
 {
     internal class Goomba
     {
-        Random random = new Random();
+        //Random random = new Random();
+        //double timer;
+        //double remainingTimer = 10;
 
         //Goomba Iddle Sprite
         public int _goomba_sprite_X = 215;
@@ -48,17 +50,29 @@ namespace RunnerByMarioGame.Entities
         public Goomba(Texture2D goombaSprite, Vector2 goombaPosition)
         {
             GoombaSprite = new SpriteDimensions(goombaSprite, _goomba_sprite_X, _goomba_sprite_Y, _goomba_sprite_width, _goomba_sprite_height);
-            GoombaPosition = goombaPosition;
+            position = goombaPosition;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            //timer += gameTime.ElapsedGameTime.TotalSeconds;
+            //remainingTimer -= timer;
             
 
-            GoombaSprite.Draw(spriteBatch, GoombaPosition);
+            //if (timer >= 10)
+            //{
+            //    GoombaPosition = new Vector2(800, 290);
+            //    // position = new Vector2(800, 290);
+            //    GoombaSprite.Draw(spriteBatch, GoombaPosition);
+            //    remainingTimer= 10;
+            //    timer = 0;
+            //}
 
-                GoombaStatus = "attack";
-                if (counter > 30)
+            if (GoombaStatus == "attack")
+            {
+                GoombaSprite.Draw(spriteBatch, GoombaPosition);
+
+                if (counter >= 30)
                 {
                     counter = 1;
                 }
@@ -84,26 +98,37 @@ namespace RunnerByMarioGame.Entities
                     GoombaSprite.Height = _goomba_running_2_sprite_height;
                 }
                 counter++;
-            
+            }
+            else if (GoombaStatus == "notActive")
+            {
+                return;
+            }
+                            
         }
 
         public void Update(GameTime gameTime)
         {
-            Attack();
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) || GoombaStatus == "attack")
+            {
+                Attack();
+            }
         }
 
         public void Attack()
         {
+            GoombaStatus = "attack";
             // Goomba Moviment Rules
             position += velocity;
             position.X -= 2f;
             velocity.X = -0.2f;
             
-
             //Update position
             GoombaPosition = position;
         }
 
+        public void Stop()
+        {
+            GoombaStatus = "notActive";
+        }
     }
 }
