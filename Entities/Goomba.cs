@@ -46,7 +46,7 @@ namespace RunnerByMarioGame.Entities
         //public Vector2 GoombaPosition { get; set; }
         public string GoombaStatus { get; set; }
         public Vector2 GoombaPosition { get; set; }
-
+        public Rectangle GoombaRectangle { get; set; }
 
         public Goomba(Texture2D goombaSprite, Vector2 goombaPosition)
         {
@@ -56,19 +56,6 @@ namespace RunnerByMarioGame.Entities
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //timer += gameTime.ElapsedGameTime.TotalSeconds;
-            //remainingTimer -= timer;
-            
-
-            //if (timer >= 10)
-            //{
-            //    GoombaPosition = new Vector2(800, 290);
-            //    // position = new Vector2(800, 290);
-            //    GoombaSprite.Draw(spriteBatch, GoombaPosition);
-            //    remainingTimer= 10;
-            //    timer = 0;
-            //}
-
             if (GoombaStatus == "attack")
             {
                 GoombaSprite.Draw(spriteBatch, position);
@@ -100,10 +87,6 @@ namespace RunnerByMarioGame.Entities
                 }
                 counter++;
             }
-            else if (GoombaStatus == "notActive")
-            {
-                return;
-            }
                             
         }
 
@@ -112,10 +95,6 @@ namespace RunnerByMarioGame.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.Space) || GoombaStatus == "attack")
             {
                 Attack();
-            }
-            else if (GoombaStatus == "notActive")
-            {
-               
             }
             //Update position
             GoombaPosition = position;
@@ -129,10 +108,6 @@ namespace RunnerByMarioGame.Entities
             position.X -= 2f;
             velocity.X = -0.2f;
 
-            if (position.X <= 0)
-            {
-                Stop();
-            }
 
         }
 

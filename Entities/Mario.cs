@@ -112,6 +112,10 @@ namespace RunnerByMarioGame.Entities
                 }
                 counter++;
             }
+            else if (MarioState == MarioState.NotActive)
+            {
+                return;
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -124,7 +128,7 @@ namespace RunnerByMarioGame.Entities
         {
             // Jumping Rules
             position += velocity;
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && MarioState != MarioState.JumpingUp)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && MarioState != MarioState.JumpingUp && MarioState != MarioState.NotActive)
             {
                 position.Y -= 10f;
                 velocity.Y = -8f;
@@ -136,9 +140,12 @@ namespace RunnerByMarioGame.Entities
                 velocity.Y += 0.15f;
             }
 
-            if (position.Y + MarioSprite.Height >= 350)
+            if (MarioState != MarioState.NotActive)
             {
-                MarioState = MarioState.Running;
+                if (position.Y + MarioSprite.Height >= 350)
+                {
+                    MarioState = MarioState.Running;
+                }
             }
 
             if (MarioState == MarioState.Running)

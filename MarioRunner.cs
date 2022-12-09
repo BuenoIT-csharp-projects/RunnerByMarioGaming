@@ -112,13 +112,17 @@ namespace RunnerByMarioGame
 
 
             //Increase time
-            _timer += gameTime.ElapsedGameTime.TotalSeconds;
-            
-            if (_timer - _timeLap >= 3)
+            if (_mario.MarioState != MarioState.NotActive && _mario.MarioState != MarioState.Idle)
             {
-	            _timeLap = _timer;
-	            _score += 10;
+                _timer += gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (_timer - _timeLap >= 3)
+                {
+                    _timeLap = _timer;
+                    _score += 10;
+                }
             }
+
             
 
             //Background Image position update
@@ -131,8 +135,12 @@ namespace RunnerByMarioGame
 	            _scrolling2.rectangle.X = _scrolling1.rectangle.X + 1280;
             }
 
-            _scrolling1.Update();
-            _scrolling2.Update();
+            if (_mario.MarioState != MarioState.NotActive && _mario.MarioState != MarioState.Idle)
+            {
+                _scrolling1.Update();
+                _scrolling2.Update();
+            }
+
 
             //Characters Update
             _mario.Update(gameTime);
@@ -140,10 +148,15 @@ namespace RunnerByMarioGame
             {
                 if (goombas[i].GoombaStatus == "notActive")
                 {
-                    _goombasRectangle[i] = Rectangle.Empty;
+                    return;
+                }
+                else if (_mario.MarioState == MarioState.NotActive)
+                {
+                    return;
                 }
                 else
                 {
+                    //Stop Game
                     goombas[i].Update(gameTime);
                 }
 
@@ -154,13 +167,15 @@ namespace RunnerByMarioGame
             marioRectangle = new Rectangle((int)_mario.MarioPosition.X, (int)_mario.MarioPosition.Y, _mario.MarioSprite.Width, _mario.MarioSprite.Height);
             for (int i = 0; i < goombas.Count; i++)
             {
-                _goombasRectangle.Add(new Rectangle((int)goombas[i].GoombaPosition.X, (int)goombas[i].GoombaPosition.Y, goombas[i].GoombaSprite.Width, goombas[i].GoombaSprite.Height));
+                goombas[i].GoombaRectangle = new Rectangle((int)goombas[i].GoombaPosition.X, (int)goombas[i].GoombaPosition.Y, goombas[i].GoombaSprite.Width, goombas[i].GoombaSprite.Height);
             }
 
-            foreach (var item in _goombasRectangle)
+            for (int i = 0; i < goombas.Count; i++)
             {
-                if (item.Intersects(marioRectangle))
+                if (goombas[i].GoombaRectangle.Intersects(marioRectangle))
                 {
+                    goombas.Remove(goombas[i]);
+                    _mario.MarioState = MarioState.NotActive;
                     counter++;
                 }
             }
@@ -192,7 +207,7 @@ namespace RunnerByMarioGame
             //Font draw
             _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
             _spriteBatch.DrawString(_font, $"Score:  {_score}", new Vector2(5,50),Color.Red);
-            _spriteBatch.DrawString(_font, $"Level", new Vector2(5,100),Color.White);
+            _spriteBatch.DrawString(_font, $"Level {counter}", new Vector2(5,100),Color.White);
 
             //End
             _spriteBatch.End();
