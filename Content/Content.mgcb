@@ -68,3 +68,9 @@
 /processorParam:TextureFormat=Color
 /build:mario-sprite-no-bg.png
 
+#begin RunningAbout.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:RunningAbout.mp3
+

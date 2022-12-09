@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RunnerByMarioGame.Background;
 using RunnerByMarioGame.Entities;
 using RunnerByMarioGame.Sprites;
@@ -51,6 +52,9 @@ namespace RunnerByMarioGame
         private int _score;
         private double _timeLap;
 
+        //Sound declaration
+        private Song _gameSound;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -74,12 +78,18 @@ namespace RunnerByMarioGame
 
             //Time lap zero
             _timeLap = 0;
-
         }
 
         protected override void LoadContent()
         {
+	        //Sound
+	        _gameSound = Content.Load<Song>("RunningAbout");
+	        //Play sound
+	        MediaPlayer.Play(_gameSound);
+
+            //Load Sprite batch
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
 
             //Background movement
             _scrolling1 = new Scrolling(Content.Load<Texture2D>("background"), new Rectangle(0, -300, 1280, 720));
@@ -109,7 +119,6 @@ namespace RunnerByMarioGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
 
             //Increase time
             if (_mario.MarioState != MarioState.NotActive && _mario.MarioState != MarioState.Idle)
