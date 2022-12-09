@@ -45,6 +45,7 @@ namespace RunnerByMarioGame.Entities
         public SpriteDimensions GoombaSprite { get; set; }
         //public Vector2 GoombaPosition { get; set; }
         public string GoombaStatus { get; set; }
+        public Vector2 GoombaPosition { get; set; }
 
 
         public Goomba(Texture2D goombaSprite, Vector2 goombaPosition)
@@ -112,6 +113,12 @@ namespace RunnerByMarioGame.Entities
             {
                 Attack();
             }
+            else if (GoombaStatus == "notActive")
+            {
+               
+            }
+            //Update position
+            GoombaPosition = position;
         }
 
         public void Attack()
@@ -121,9 +128,12 @@ namespace RunnerByMarioGame.Entities
             position += velocity;
             position.X -= 2f;
             velocity.X = -0.2f;
-            
-            //Update position
-            //GoombaPosition = position;
+
+            if (position.X <= 0)
+            {
+                Stop();
+            }
+
         }
 
         public void Stop()

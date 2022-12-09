@@ -24,6 +24,8 @@ namespace RunnerByMarioGame
         //Goomba object declaration
         private Goomba _goomba;
 
+        Rectangle marioRectangle = new Rectangle();
+        List<Rectangle> _goombasRectangle = new List<Rectangle>();
         //Goomba Sprite Add To Variables
         private const string goomba_no_bg = "goomba-no-bg";
         private Texture2D _spriteGoomba;
@@ -39,6 +41,8 @@ namespace RunnerByMarioGame
         private Scrolling _scrolling1;
         private Scrolling _scrolling2;
 
+
+        int counter;
         //Font declaration
         private SpriteFont _font;
 
@@ -134,9 +138,34 @@ namespace RunnerByMarioGame
             _mario.Update(gameTime);
             for (int i = 0; i < goombas.Count; i++)
             {
-                goombas[i].Update(gameTime);
+                if (goombas[i].GoombaStatus == "notActive")
+                {
+                    _goombasRectangle[i] = Rectangle.Empty;
+                }
+                else
+                {
+                    goombas[i].Update(gameTime);
+                }
+
             }
             //_goomba.Update(gameTime);
+
+            //Collision Dectection Update
+            marioRectangle = new Rectangle((int)_mario.MarioPosition.X, (int)_mario.MarioPosition.Y, _mario.MarioSprite.Width, _mario.MarioSprite.Height);
+            for (int i = 0; i < goombas.Count; i++)
+            {
+                _goombasRectangle.Add(new Rectangle((int)goombas[i].GoombaPosition.X, (int)goombas[i].GoombaPosition.Y, goombas[i].GoombaSprite.Width, goombas[i].GoombaSprite.Height));
+            }
+
+            foreach (var item in _goombasRectangle)
+            {
+                if (item.Intersects(marioRectangle))
+                {
+                    counter++;
+                }
+            }
+            
+
 
             base.Update(gameTime);
         }
@@ -163,7 +192,7 @@ namespace RunnerByMarioGame
             //Font draw
             _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
             _spriteBatch.DrawString(_font, $"Time:  {_score}", new Vector2(5,50),Color.Red);
-            _spriteBatch.DrawString(_font, $"abc", new Vector2(5,100),Color.White);
+            _spriteBatch.DrawString(_font, $"abc {counter} ", new Vector2(5,100),Color.White);
 
             //End
             _spriteBatch.End();
