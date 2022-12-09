@@ -96,7 +96,7 @@ namespace RunnerByMarioGame
             var rndNumberOfGoombas = random.Next(8, 20); //Random number of Goombas to be created in the game
             for (int i = 0; i < rndNumberOfGoombas; i++)
             {
-                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 10000), 290)));
+                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 10000), 300)));
             }
 
         }
@@ -162,8 +162,8 @@ namespace RunnerByMarioGame
 
             //Font draw
             _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
-            _spriteBatch.DrawString(_font, $"Time:  {_score}", new Vector2(5,50),Color.Red);
-            _spriteBatch.DrawString(_font, $"abc", new Vector2(5,100),Color.White);
+            _spriteBatch.DrawString(_font, $"Score:  {_score}", new Vector2(5,50),Color.Red);
+            _spriteBatch.DrawString(_font, $"Level", new Vector2(5,100),Color.White);
 
             //End
             _spriteBatch.End();
