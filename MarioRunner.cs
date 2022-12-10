@@ -131,7 +131,7 @@ namespace RunnerByMarioGame
             _spriteGoomba = Content.Load<Texture2D>(goomba_no_bg);
 
             //Load Goombas created to the game
-            var rndNumberOfGoombas = random.Next(5, 10); //Random number of Goombas to be created in the game
+            var rndNumberOfGoombas = random.Next(4, 7); //Random number of Goombas to be created in the game
             for (int i = 0; i < rndNumberOfGoombas; i++)
             {
                 goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 8000), 300)));
@@ -141,7 +141,7 @@ namespace RunnerByMarioGame
             _spriteBoo = Content.Load<Texture2D>(boo_no_bg);
 
             //Load Boos created to the game
-            var rndNumberOfBoos = random.Next(5, 10); //Random number of Boos to be created in the game
+            var rndNumberOfBoos = random.Next(4, 7); //Random number of Boos to be created in the game
             for (int i = 0; i < rndNumberOfBoos; i++)
             {
                 boos.Add(new Boo(_spriteBoo, new Vector2(random.Next(9000, 16000), random.Next(220, 250))));
@@ -151,7 +151,7 @@ namespace RunnerByMarioGame
             _spriteKoopaTroopa = Content.Load<Texture2D>(koopa_troopa_no_bg);
 
             //Load Koopa Troopas created to the game
-            var rndNumberOfKoopaTroopas = random.Next(5, 10); //Random number of  Koopa Troopas  to be created in the game
+            var rndNumberOfKoopaTroopas = random.Next(4, 7); //Random number of  Koopa Troopas  to be created in the game
             for (int i = 0; i < rndNumberOfKoopaTroopas; i++)
             {
                 koopaTroopas.Add(new KoopaTroopa(_spriteKoopaTroopa, new Vector2(random.Next(17000, 25000), 290)));
@@ -177,21 +177,6 @@ namespace RunnerByMarioGame
                 }
             }
 
-            if (goombas.First().GoombaPosition.X <= 800)
-            {
-                _level = 1;
-                _levelDeclaration = "Goomba";
-            }
-            else if (boos.First().BooPosition.X <= 800)
-            {
-                _level= 2;
-                _levelDeclaration = "Boo";
-            }
-            else if (koopaTroopas.First().KoopaTroopaPosition.X <= 800)
-            {
-                _level = 3;
-                _levelDeclaration = "Koompa Troopa";
-            }
 
             //Background Image position update
             if (_scrolling1.rectangle.X + 1280 <= 0)
@@ -278,6 +263,10 @@ namespace RunnerByMarioGame
                     _mario.MarioState = MarioState.NotActive;
                     isOver = true;
                 }
+                else if (goombas[i].GoombaRectangle.X <= 0)
+                {
+                    goombas.Remove(goombas[i]);
+                }
             }
 
             for (int i = 0; i < boos.Count; i++)
@@ -293,6 +282,10 @@ namespace RunnerByMarioGame
                     _mario.MarioState = MarioState.NotActive;
                     isOver = true;
                 }
+                else if (boos[i].BooRectangle.X <= 0)
+                {
+                    boos.Remove(boos[i]);
+                }
             }
 
             for (int i = 0; i < koopaTroopas.Count; i++)
@@ -307,9 +300,30 @@ namespace RunnerByMarioGame
                     koopaTroopas.Remove(koopaTroopas[i]);
                     _mario.MarioState = MarioState.NotActive;
                     isOver = true;
-                    
+
+                }
+                else if (koopaTroopas[i].KoopaTroopaRectangle.X <= 0)
+                {
+                    koopaTroopas.Remove(koopaTroopas[i]);
                 }
             }
+
+            if (goombas.Count > 0)
+            {
+                _level = 1;
+                _levelDeclaration = $"{goombas.Count} Goombas";
+            }
+            else if (boos.Count > 0)
+            {
+                _level = 2;
+                _levelDeclaration = $"{boos.Count} Boos";
+            }
+            else if (koopaTroopas.Count >0)
+            {
+                _level = 3;
+                _levelDeclaration = $"{koopaTroopas.Count} Koompa Troopas";
+            }
+
 
             if (isOver)
             {
