@@ -1,4 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ *  Class ID: Mario Runner
+ *  Purpose: To manage all sprite creations
+ *
+ *  Revision history
+ *      Guilherme Bueno, 2022.12.04: Created
+ *
+ */
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
