@@ -76,6 +76,7 @@ namespace RunnerByMarioGame
 
         //Sound declaration
         private Song _gameSound;
+        private Song _deathSound;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -104,8 +105,9 @@ namespace RunnerByMarioGame
 
         protected override void LoadContent()
         {
-	        //Sound
+	        //Sounds
 	        _gameSound = Content.Load<Song>("RunningAbout");
+	        _deathSound = Content.Load<Song>("marioDeath");
 	        //Play sound
 	        MediaPlayer.Play(_gameSound);
 
@@ -321,13 +323,16 @@ namespace RunnerByMarioGame
             else if (koopaTroopas.Count >0)
             {
                 _level = 3;
-                _levelDeclaration = $"{koopaTroopas.Count} Koompa Troopas";
+                _levelDeclaration = $"{koopaTroopas.Count} Koopa Troopas";
             }
 
 
             if (isOver)
             {
+                //Stop music when mario dies
                 MediaPlayer.Stop();
+                //Play mario's death's sond
+                MediaPlayer.Play(_deathSound);
             }
 
             base.Update(gameTime);

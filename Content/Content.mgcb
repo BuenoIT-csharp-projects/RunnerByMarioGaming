@@ -104,6 +104,12 @@
 /processorParam:TextureFormat=Color
 /build:mario-sprite-no-bg.png
 
+#begin marioDeath.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:marioDeath.mp3
+
 #begin RunningAbout.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
