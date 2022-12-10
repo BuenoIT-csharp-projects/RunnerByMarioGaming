@@ -7,11 +7,17 @@ using RunnerByMarioGame.Entities;
 using RunnerByMarioGame.Sprites;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RunnerByMarioGame
 {
     public class MarioRunner : Game
     {
+        //Start Game and End Game Image Declaration
+        private Texture2D _spriteStartGame;
+        private Texture2D _spriteEndGame;
+
+
         //Random Initialization
         Random random = new Random();
 
@@ -65,6 +71,8 @@ namespace RunnerByMarioGame
         private double _timer;
         private int _score;
         private double _timeLap;
+        private int _level;
+        private string _levelDeclaration;
 
         //Sound declaration
         private Song _gameSound;
@@ -104,6 +112,9 @@ namespace RunnerByMarioGame
             //Load Sprite batch
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Start Game and End Game Sprite Load
+            _spriteStartGame = Content.Load<Texture2D>("startgame");
+            _spriteEndGame = Content.Load<Texture2D>("endgame");
 
             //Background movement
             _scrolling1 = new Scrolling(Content.Load<Texture2D>("background"), new Rectangle(0, -300, 1280, 720));
@@ -123,7 +134,7 @@ namespace RunnerByMarioGame
             var rndNumberOfGoombas = random.Next(5, 10); //Random number of Goombas to be created in the game
             for (int i = 0; i < rndNumberOfGoombas; i++)
             {
-                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(0, 8000), 300)));
+                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 8000), 300)));
             }
 
             //Load Boos Sprite to the Game
@@ -166,7 +177,21 @@ namespace RunnerByMarioGame
                 }
             }
 
-            
+            if (goombas.First().GoombaPosition.X <= 800)
+            {
+                _level = 1;
+                _levelDeclaration = "Goomba";
+            }
+            else if (boos.First().BooPosition.X <= 800)
+            {
+                _level= 2;
+                _levelDeclaration = "Boo";
+            }
+            else if (koopaTroopas.First().KoopaTroopaPosition.X <= 800)
+            {
+                _level = 3;
+                _levelDeclaration = "Koompa Troopa";
+            }
 
             //Background Image position update
             if (_scrolling1.rectangle.X + 1280 <= 0)
@@ -282,9 +307,14 @@ namespace RunnerByMarioGame
                     koopaTroopas.Remove(koopaTroopas[i]);
                     _mario.MarioState = MarioState.NotActive;
                     isOver = true;
+                    
                 }
             }
 
+            if (isOver)
+            {
+                MediaPlayer.Stop();
+            }
 
             base.Update(gameTime);
         }
@@ -304,7 +334,15 @@ namespace RunnerByMarioGame
 
             if (!isStarted)
             {
-                _spriteBatch.DrawString(_font, $"Press Space to Start the Game", new Vector2(350, 200), Color.Black);      
+                _spriteBatch.Draw(_spriteStartGame, new Vector2(_graphics.PreferredBackBufferWidth/2 - _spriteStartGame.Width/2, _graphics.PreferredBackBufferHeight / 2 - _spriteStartGame.Height / 2), Color.White);
+                _spriteBatch.DrawString(_font, $"Press Space to jump and start the game", new Vector2(220, 280), Color.White);
+            }
+            else
+            {
+                //Font draw
+                _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer, 0)}", new Vector2(5, 10), Color.Red);
+                _spriteBatch.DrawString(_font, $"Score:  {_score}", new Vector2(5, 50), Color.Red);
+                _spriteBatch.DrawString(_font, $"Level {_level} ({_levelDeclaration})", new Vector2(5, 100), Color.White);
             }
 
             for (int i = 0; i < goombas.Count; i++)
@@ -324,14 +362,12 @@ namespace RunnerByMarioGame
 
 
 
-            //Font draw
-            _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
-            _spriteBatch.DrawString(_font, $"Score:  {_score}", new Vector2(5,50),Color.Red);
-            _spriteBatch.DrawString(_font, $"Level {counter}", new Vector2(5,100),Color.White);
+
 
             if (isOver)
             {
-                _spriteBatch.DrawString(_font, $"End Game", new Vector2(450, 200), Color.Black);
+                _spriteBatch.Draw(_spriteEndGame, new Vector2(_graphics.PreferredBackBufferWidth / 2 - _spriteEndGame.Width / 2, _graphics.PreferredBackBufferHeight / 2 - _spriteEndGame.Height / 2), Color.White);
+                
             }
 
             //End

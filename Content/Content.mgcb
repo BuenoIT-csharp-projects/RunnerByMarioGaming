@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:boo-sprite.png
 
+#begin endgame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:endgame.png
+
 #begin Fonts.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -97,4 +109,16 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:RunningAbout.mp3
+
+#begin startgame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:startgame.png
 
