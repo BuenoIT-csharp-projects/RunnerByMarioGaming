@@ -21,18 +21,28 @@ namespace RunnerByMarioGame
 
         //Mario object declaration
         private Mario _mario;
-
-        //Goomba object declaration
-        private Goomba _goomba;
-
         Rectangle marioRectangle = new Rectangle();
-        List<Rectangle> _goombasRectangle = new List<Rectangle>();
+
         //Goomba Sprite Add To Variables
         private const string goomba_no_bg = "goomba-no-bg";
         private Texture2D _spriteGoomba;
 
         //List of Goombas declaration
         List<Goomba> goombas = new List<Goomba>();
+
+        //Boo Sprite Add To Variables
+        private const string boo_no_bg = "boo-sprite";
+        private Texture2D _spriteBoo;
+
+        //List of Boo declaration
+        List<Boo> boos = new List<Boo>();
+
+        //KoopaTroopa Sprite Add To Variables
+        private const string koopa_troopa_no_bg = "koopa-troopa";
+        private Texture2D _spriteKoopaTroopa;
+
+        //List of Boo declaration
+        List<KoopaTroopa> koopaTroopas = new List<KoopaTroopa>();
 
         //Screen size declarations and initialization
         public const int screen_width = 1000;
@@ -42,8 +52,12 @@ namespace RunnerByMarioGame
         private Scrolling _scrolling1;
         private Scrolling _scrolling2;
 
-
         int counter;
+
+        //Messages variables
+        bool isOver = false;
+        bool isStarted = false;
+
         //Font declaration
         private SpriteFont _font;
 
@@ -104,14 +118,34 @@ namespace RunnerByMarioGame
             
             //Load Goomba Sprite to the Game
             _spriteGoomba = Content.Load<Texture2D>(goomba_no_bg);
-            //_goomba = new Goomba(_spriteGoomba, new Vector2(1100, 290));
 
             //Load Goombas created to the game
-            var rndNumberOfGoombas = random.Next(8, 20); //Random number of Goombas to be created in the game
+            var rndNumberOfGoombas = random.Next(5, 10); //Random number of Goombas to be created in the game
             for (int i = 0; i < rndNumberOfGoombas; i++)
             {
-                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(900, 10000), 300)));
+                goombas.Add(new Goomba(_spriteGoomba, new Vector2(random.Next(0, 8000), 300)));
             }
+
+            //Load Boos Sprite to the Game
+            _spriteBoo = Content.Load<Texture2D>(boo_no_bg);
+
+            //Load Boos created to the game
+            var rndNumberOfBoos = random.Next(5, 10); //Random number of Boos to be created in the game
+            for (int i = 0; i < rndNumberOfBoos; i++)
+            {
+                boos.Add(new Boo(_spriteBoo, new Vector2(random.Next(9000, 16000), random.Next(220, 250))));
+            }
+
+            //Load Koopa Troopas Sprite to the Game
+            _spriteKoopaTroopa = Content.Load<Texture2D>(koopa_troopa_no_bg);
+
+            //Load Koopa Troopas created to the game
+            var rndNumberOfKoopaTroopas = random.Next(5, 10); //Random number of  Koopa Troopas  to be created in the game
+            for (int i = 0; i < rndNumberOfKoopaTroopas; i++)
+            {
+                koopaTroopas.Add(new KoopaTroopa(_spriteKoopaTroopa, new Vector2(random.Next(17000, 25000), 290)));
+            }
+
 
         }
 
@@ -146,6 +180,7 @@ namespace RunnerByMarioGame
 
             if (_mario.MarioState != MarioState.NotActive && _mario.MarioState != MarioState.Idle)
             {
+                isStarted = true;
                 _scrolling1.Update();
                 _scrolling2.Update();
             }
@@ -165,12 +200,43 @@ namespace RunnerByMarioGame
                 }
                 else
                 {
-                    //Stop Game
+                  
                     goombas[i].Update(gameTime);
                 }
-
             }
-            //_goomba.Update(gameTime);
+
+            for (int i = 0; i < boos.Count; i++)
+            {
+                if (boos[i].BooStatus == "notActive")
+                {
+                    return;
+                }
+                else if (_mario.MarioState == MarioState.NotActive)
+                {
+                    return;
+                }
+                else
+                {      
+                    boos[i].Update(gameTime);
+                }
+            }
+
+            for (int i = 0; i < koopaTroopas.Count; i++)
+            {
+                if (koopaTroopas[i].KoopaTroopaStatus == "notActive")
+                {
+                    return;
+                }
+                else if (_mario.MarioState == MarioState.NotActive)
+                {
+                    return;
+                }
+                else
+                {     
+                    koopaTroopas[i].Update(gameTime);
+                }
+            }
+
 
             //Collision Dectection Update
             marioRectangle = new Rectangle((int)_mario.MarioPosition.X, (int)_mario.MarioPosition.Y, _mario.MarioSprite.Width, _mario.MarioSprite.Height);
@@ -185,10 +251,39 @@ namespace RunnerByMarioGame
                 {
                     goombas.Remove(goombas[i]);
                     _mario.MarioState = MarioState.NotActive;
-                    counter++;
+                    isOver = true;
                 }
             }
-            
+
+            for (int i = 0; i < boos.Count; i++)
+            {
+                boos[i].BooRectangle = new Rectangle((int)boos[i].BooPosition.X, (int)boos[i].BooPosition.Y, boos[i].BooSprite.Width, boos[i].BooSprite.Height);
+            }
+
+            for (int i = 0; i < boos.Count; i++)
+            {
+                if (boos[i].BooRectangle.Intersects(marioRectangle))
+                {
+                    boos.Remove(boos[i]);
+                    _mario.MarioState = MarioState.NotActive;
+                    isOver = true;
+                }
+            }
+
+            for (int i = 0; i < koopaTroopas.Count; i++)
+            {
+                koopaTroopas[i].KoopaTroopaRectangle = new Rectangle((int)koopaTroopas[i].KoopaTroopaPosition.X, (int)koopaTroopas[i].KoopaTroopaPosition.Y, koopaTroopas[i].KoopaTroopaSprite.Width, koopaTroopas[i].KoopaTroopaSprite.Height);
+            }
+
+            for (int i = 0; i < koopaTroopas.Count; i++)
+            {
+                if (koopaTroopas[i].KoopaTroopaRectangle.Intersects(marioRectangle))
+                {
+                    koopaTroopas.Remove(koopaTroopas[i]);
+                    _mario.MarioState = MarioState.NotActive;
+                    isOver = true;
+                }
+            }
 
 
             base.Update(gameTime);
@@ -207,16 +302,37 @@ namespace RunnerByMarioGame
             //Character Draw
             _mario.Draw(_spriteBatch, gameTime);
 
+            if (!isStarted)
+            {
+                _spriteBatch.DrawString(_font, $"Press Space to Start the Game", new Vector2(350, 200), Color.Black);      
+            }
+
             for (int i = 0; i < goombas.Count; i++)
             {
                 goombas[i].Draw(_spriteBatch, gameTime);
             }
-            //_goomba.Draw(_spriteBatch, gameTime);
+
+            for (int i = 0; i < boos.Count; i++)
+            {
+                boos[i].Draw(_spriteBatch, gameTime);
+            }
+
+            for (int i = 0; i < koopaTroopas.Count; i++)
+            {
+                koopaTroopas[i].Draw(_spriteBatch, gameTime);
+            }
+
+
 
             //Font draw
             _spriteBatch.DrawString(_font, $"Time: {Math.Round(_timer,0)}", new Vector2(5, 10), Color.Red);
             _spriteBatch.DrawString(_font, $"Score:  {_score}", new Vector2(5,50),Color.Red);
             _spriteBatch.DrawString(_font, $"Level {counter}", new Vector2(5,100),Color.White);
+
+            if (isOver)
+            {
+                _spriteBatch.DrawString(_font, $"End Game", new Vector2(450, 200), Color.Black);
+            }
 
             //End
             _spriteBatch.End();

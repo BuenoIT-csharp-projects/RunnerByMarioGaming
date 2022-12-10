@@ -14,22 +14,22 @@ namespace RunnerByMarioGame.Entities
     internal class KoopaTroopa
     {
 	    //Koopa Troopa Iddle Sprite
-        public int _koopaTroopa_sprite_X = 215;
-        public int _koopaTroopa_sprite_Y = 82;
-        public int _koopaTroopa_sprite_width = 43;
-        public int _koopaTroopa_sprite_height = 53;
+        public int _koopaTroopa_sprite_X = 10;
+        public int _koopaTroopa_sprite_Y = 20;
+        public int _koopaTroopa_sprite_width = 48;
+        public int _koopaTroopa_sprite_height = 63;
 
-        //Koopa Troopa Running Sprite_1
-        public int _koopaTroopa_running_1_sprite_X = 53;
-        public int _koopaTroopa_running_1_sprite_Y = 7;
-        public int _koopaTroopa_running_1_sprite_width = 40;
-        public int _koopaTroopa_running_1_sprite_height = 52;
+        ////Koopa Troopa Running Sprite_1
+        //public int _koopaTroopa_running_1_sprite_X = 165;
+        //public int _koopaTroopa_running_1_sprite_Y = 20;
+        //public int _koopaTroopa_running_1_sprite_width = 45;
+        //public int _koopaTroopa_running_1_sprite_height = 63;
 
         //Koopa Troopa Running Sprite_2
-        public int _koopaTroopa_running_2_sprite_X = 267;
-        public int _koopaTroopa_running_2_sprite_Y = 81;
-        public int _koopaTroopa_running_2_sprite_width = 43;
-        public int _koopaTroopa_running_2_sprite_height = 53;
+        public int _koopaTroopa_running_2_sprite_X = 223;
+        public int _koopaTroopa_running_2_sprite_Y = 20;
+        public int _koopaTroopa_running_2_sprite_width = 48;
+        public int _koopaTroopa_running_2_sprite_height = 63;
 
 
         //Jump variables declaration and initialization
@@ -59,13 +59,13 @@ namespace RunnerByMarioGame.Entities
                 {
                     counter = 1;
                 }
-                else if (counter >= 20)
-                {
-                    KoopaTroopaSprite.PointX = _koopaTroopa_running_1_sprite_X;
-                    KoopaTroopaSprite.PointY = _koopaTroopa_running_1_sprite_Y;
-                    KoopaTroopaSprite.Width = _koopaTroopa_running_1_sprite_X;
-                    KoopaTroopaSprite.Height = _koopaTroopa_running_1_sprite_height;
-                }
+                //else if (counter >= 20)
+                //{
+                //    KoopaTroopaSprite.PointX = _koopaTroopa_running_1_sprite_X;
+                //    KoopaTroopaSprite.PointY = _koopaTroopa_running_1_sprite_Y;
+                //    KoopaTroopaSprite.Width = _koopaTroopa_running_1_sprite_X;
+                //    KoopaTroopaSprite.Height = _koopaTroopa_running_1_sprite_height;
+                //}
                 else if (counter >= 10 && counter < 20)
                 {
                     KoopaTroopaSprite.PointX = _koopaTroopa_sprite_X;
@@ -91,6 +91,8 @@ namespace RunnerByMarioGame.Entities
             {
                 Attack();
             }
+            //Update position
+            KoopaTroopaPosition = position;
         }
 
         public void Attack()

@@ -68,6 +68,18 @@
 /processorParam:TextureFormat=Color
 /build:ground.jpg
 
+#begin koopa-troopa.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:koopa-troopa.png
+
 #begin mario-sprite-no-bg.png
 /importer:TextureImporter
 /processor:TextureProcessor
