@@ -1,4 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ *  Class ID: Mario Runner
+ *  Purpose: To manage all global events
+ *
+ *  Revision history
+ *      Guilherme Bueno, 2022.12.04: Created
+ *      Sergio Toledo, 2022.12.05: Implemented new features
+ *      Dohee Hur, 2022.12.10: Revised and inspected
+ *
+ */
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -146,7 +157,7 @@ namespace RunnerByMarioGame
             var rndNumberOfBoos = random.Next(4, 7); //Random number of Boos to be created in the game
             for (int i = 0; i < rndNumberOfBoos; i++)
             {
-                boos.Add(new Boo(_spriteBoo, new Vector2(random.Next(9000, 16000), random.Next(220, 250))));
+                boos.Add(new Boo(_spriteBoo, new Vector2(random.Next(9000, 16000), random.Next(250, 300))));
             }
 
             //Load Koopa Troopas Sprite to the Game

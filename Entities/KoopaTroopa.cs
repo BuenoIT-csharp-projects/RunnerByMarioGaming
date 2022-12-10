@@ -1,4 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿/*
+ *  Class ID: Koopa Troopa
+ *  Purpose: To create a Koopa Troopa enemy 
+ *
+ *  Revision history
+ *      Sergio Toledo, 2022.12.09: Created and implemented
+ */
+
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using RunnerByMarioGame.Sprites;

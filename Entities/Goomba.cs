@@ -1,4 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿/*
+ *  Class ID: Goomba
+ *  Purpose: To create a Goomba enemy 
+ *
+ *  Revision history
+ *      Guilherme Bueno, 2022.12.10: Created and implemented
+ */
+
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using RunnerByMarioGame.Sprites;
@@ -13,11 +21,7 @@ namespace RunnerByMarioGame.Entities
 {
     internal class Goomba
     {
-        //Random random = new Random();
-        //double timer;
-        //double remainingTimer = 10;
-
-        //Goomba Iddle Sprite
+	    //Goomba Iddle Sprite
         public int _goomba_sprite_X = 215;
         public int _goomba_sprite_Y = 82;
         public int _goomba_sprite_width = 43;

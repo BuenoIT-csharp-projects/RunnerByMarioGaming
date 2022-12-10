@@ -1,4 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿/*
+ *  Class ID: Boo
+ *  Purpose: To create a Boo enemy 
+ *
+ *  Revision history
+ *      Guilherme Bueno, 2022.12.10: Created and implemented
+ */
+
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using RunnerByMarioGame.Sprites;

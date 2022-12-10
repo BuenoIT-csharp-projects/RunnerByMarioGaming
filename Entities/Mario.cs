@@ -1,4 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ *  Class ID: Mario
+ *  Purpose: To create a Mario Character 
+ *
+ *  Revision history
+ *      Sergio Toledo, 2022.12.09: Created and implemented
+ */
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RunnerByMarioGame.Sprites;

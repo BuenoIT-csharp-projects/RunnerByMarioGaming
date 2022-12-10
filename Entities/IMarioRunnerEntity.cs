@@ -1,4 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ *  Class ID: IMarioRunnerEntity
+ *  Purpose: To manage entity
+ *
+ *  Revision history
+ *      Dohee Hur, 2022.12.09: Created and implemented
+ */
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

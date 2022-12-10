@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ *  Class ID: BackgroundParallax
+ *  Purpose: To create moving background
+ *
+ *  Revision history
+ *      Dohee Hur, 2022.12.10: Created and implemented
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
